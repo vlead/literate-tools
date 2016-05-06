@@ -140,14 +140,6 @@
  :auto-sitemap t
   ))
 
-(setq org-static `("org-static"
-  :base-directory ,*src-dir*
-  :base-extension "css\\|js\\|png\\|ico\\|jpg\\|png\\|gif\\|mp3\\|ogg\\|swf\\|emacs\\|sh\\|pdf\\|tex\\|css\\|ss\\|rkt\\|flv\\|tgz"
-  :publishing-directory ,*docs-dir*
-  :recursive t
-  :publishing-function org-publish-attachment
-  ))
-
 (setq snag
       '("snag" :components ("org-code" "org-docs"
       "org-static" "org-tangled")))
