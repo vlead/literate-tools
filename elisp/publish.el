@@ -46,6 +46,7 @@
 (message "Org version = %s" (org-version))
 (message "load-path = %s" load-path)
 
+(setq org-export-babel-evaluate nil)
 (setq org-export-allow-BIND t)
 ;;; tangle code before publishing
 (add-hook 'org-publish-before-export-hook 'org-babel-tangle 'append)
@@ -71,12 +72,12 @@
 ;;; version controlled files that are symlinks.
 (setq vc-follow-symlinks t)
 
-; Preserve whitespace indentation for .yml files!!
+; Preserve whitespace indentation for .yml files
 (setq org-src-preserve-indentation t)
 
 
 ;;; default-directory :: emacs defined variable.  Is equal
-;;; to the directory from where the emacs is launched.
+;;; to the directory from where emacs is launched.
 
 ;;; base-dir :: equal to default-dir
 ;;; src-dir   =  base-dir/src
@@ -85,73 +86,106 @@
 ;;; code-dir  =  build-dir/code
 
 ;;; CUSTOMIZE these variables!
+
+;;; root directory 
 (defvar *base-dir*  default-directory)
+;;; directory where sources (org) reside
 (defvar *src-dir*   (concat *base-dir* "src/"))
+;;; root directory of build
 (defvar *build-dir* (concat *base-dir* "build/"))
+;;; directory where html files reside
 (defvar *docs-dir*  (concat *build-dir* "docs/"))
+;;; directory where code resides
 (defvar *code-dir*  (concat *build-dir* "code/"))
 
-(defvar org-docs '())
-(defvar org-static '())
-(defvar org-code '())
-(defvar snag '())
 
 (message "======================")
 (message "base dir = %s" *base-dir*)
 (message "docs dir= %s" *docs-dir*)
 (message "code dir= %s" *code-dir*)
 
-;(message "tangle func= %s" org-babel-tangle)
-;(message "publish func= %s" org-html-publish-to-html)
 (message "======================")
-(interactive "press enter.....")
+;;; (interactive "press enter.....")
 
 (defun tangle-wrapper (plist filename pub-dir)
   (org-babel-tangle-file/publish-dir filename pub-dir))
 
+;;; publishing components
+;;; --------------------
+
+;;; documents
+(defvar org-docs '())
+
+;;; static stuff like images etc.
+(defvar org-static '())
+
+;;; tangled-code
+(defvar org-tangled '())
+
+;;; main project
+(defvar prj '())
+
+;;; exports  org files html and leaves them in  docs
+(setq org-docs
+	  `("org-docs"
+		:base-directory ,*src-dir*
+		:base-extension "org"
+		:publishing-directory ,*docs-dir*
+		:recursive t
+		:publishing-function org-html-publish-to-html
+		:headline-levels 4		  ; Just the default for this project.
+		:auto-preamble t
+		:auto-sitemap t
+		))
+
+;;; copies non org (static) files  to docs
+(setq org-static
+	  `("org-static"
+		:base-directory ,*src-dir*
+		:base-extension "png\\|css\\|js"
+		:publishing-directory ,*docs-dir*
+		:recursive t
+		:publishing-function org-publish-attachment
+		))
+
 
 (setq org-code
-`("org-code"
- :base-directory ,*src-dir*
- :base-extension "org"
- :publishing-directory ,*code-dir*
- :recursive t
- :publishing-function tangle-wrapper
-  ))
-
-(setq org-tangled `("org-tangled"
-  :base-directory ,*src-dir*
-  :base-extension "yml\\|yaml"
-  :publishing-directory ,*code-dir*
-  :recursive t
-  :publishing-function org-publish-attachment
-  ))
+	  `("org-code"
+		:base-directory ,*src-dir*
+		:base-extension "org"
+		:publishing-directory ,*code-dir*
+		:recursive t
+		:publishing-function 
+		tangle-wrapper
+		))
 
 
-(setq org-docs
-`("org-docs"
- :base-directory ,*src-dir*
- :base-extension "org"
- :publishing-directory ,*docs-dir*
- :recursive t
- :publishing-function org-html-publish-to-html
- :headline-levels 4             ; Just the default for this project.
- :auto-preamble t
- :auto-sitemap t
-  ))
+(setq org-tangled 
+	  `("org-tangled"
+		:base-directory ,*src-dir*
+		:base-extension "py"
+		:publishing-directory ,*code-dir*
+		:recursive t
+		:publishing-function org-publish-attachment
+		))
 
-(setq snag
-      '("snag" :components ("org-code" "org-docs"
-      "org-static" "org-tangled")))
+(setq prj
+      '("prj" :components 
+		(
+		 "org-docs" 
+		 "org-static" 
+		 "org-code"
+;		 "org-tangled"
+		 )))
 
 (require 'ox-publish)
 (load-file "./elisp/htmlize.el")
 
 (setq org-publish-project-alist
-      (list org-code org-docs org-static org-tangled snag))
+      (list org-docs org-static org-code org-tangled prj))
 
 (org-publish-project
- snag  ; project name
+ prj  ; project name
  t ; force
  )
 
