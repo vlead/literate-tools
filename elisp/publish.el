@@ -148,25 +148,14 @@
 		:publishing-function org-publish-attachment
 		))
 
-
+;;; tangles code out from the *src-dir*
 (setq org-code
 	  `("org-code"
 		:base-directory ,*src-dir*
 		:base-extension "org"
 		:publishing-directory ,*code-dir*
 		:recursive t
-		:publishing-function 
-		tangle-wrapper
-		))
-
-
-(setq org-tangled 
-	  `("org-tangled"
-		:base-directory ,*src-dir*
-		:base-extension "py"
-		:publishing-directory ,*code-dir*
-		:recursive t
-		:publishing-function org-publish-attachment
+		:publishing-function tangle-wrapper
 		))
 
 (setq prj
@@ -175,7 +164,6 @@
 		 "org-docs" 
 		 "org-static" 
 		 "org-code"
-;		 "org-tangled"
 		 )))
 
 (require 'ox-publish)
