@@ -76,8 +76,14 @@
 (setq org-src-preserve-indentation t)
 
 
+;; Set to true to use regular expressions to expand noweb references.
+;; This results in much faster noweb reference expansion but does
+;; not properly allow code blocks to inherit the \":noweb-ref\"
+;; header argument from buffer or subtree wide properties.")
 ;;; default-directory :: emacs defined variable.  Is equal
 ;;; to the directory from where emacs is launched.
+(setq org-babel-use-quick-and-dirty-noweb-expansion t)
+
 
 ;;; base-dir :: equal to default-dir
 ;;; src-dir   =  base-dir/src
