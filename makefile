@@ -42,7 +42,7 @@ init: mk-symlinks
 mk-symlinks:  pull-literate-tools
 	(ln -sf ${LITERATE_DIR}/${ELISP_DIR}; \
 	ln -sf ../${LITERATE_DIR}/${ORG_DIR} ${SRC_DIR}; \
-	ln -s ../${LITERATE_DIR}/${STYLE_DIR} ${SRC_DIR})
+	ln -sf ../${LITERATE_DIR}/${STYLE_DIR} ${SRC_DIR})
 
 pull-literate-tools:
 	@echo "checking for literate support ..."
