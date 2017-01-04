@@ -16,12 +16,33 @@ SRC_DIR=src
 PWD=$(shell pwd)
 STATUS=0
 
-all:  check-elisp build
+all:  check-org build
 
-clean-literate:
-	rm -rf ${ELISP_DIR}
-	rm -rf src/${ORG_DIR}
-	rm -rf src/${STYLE_DIR}
+check-org:
+ifeq ($(wildcard ${ORG_MODE_DIR}/org-8.2.10/*),)
+	mkdir -p ${ORG_MODE_DIR}
+	wget http://orgmode.org/org-9.0.2.tar.gz
+	tar zxvf org-9.0.2.tar.gz
+	rm -rf org-9.0.2.tar.gz
+	mv org-9.0.2 ${ORG_MODE_DIR}
+	ln -s ${ORG_MODE_DIR}/org-9.0.2/ ${ORG_MODE_DIR}/org-8.2.10
+else
+	@echo "org-mode org-8.2.10 already present"
+endif
+
+
+build: init write-version
+	emacs  --script elisp/publish.el
+
+init: mk-symlinks
+	rm -rf ${BUILD_DIR}
+	mkdir -p ${BUILD_DIR} ${CODE_DIR}
+
+
+mk-symlinks:  pull-literate-tools
+	(ln -sf ${LITERATE_DIR}/${ELISP_DIR}; \
+	ln -sf ${LITERATE_DIR}/${ORG_DIR} ${SRC_DIR}; \
+	ln -s ${LITERATE_DIR}/${STYLE_DIR} ${SRC_DIR})
 
 pull-literate-tools:
 	@echo "checking for literate support ..."
@@ -35,34 +56,6 @@ else
 	@echo "Literate support code already present"
 endif
 
-mk-symlinks:  pull-literate-tools
-	(ln -sf ${LITERATE_DIR}/${ELISP_DIR}; \
-	ln -sf ${LITERATE_DIR}/${ORG_DIR} ${SRC_DIR}; \
-	ln -s ${LITERATE_DIR}/${STYLE_DIR} ${SRC_DIR})
-
-check-elisp:
-ifeq ($(wildcard ${ORG_MODE_DIR}/org-8.2.10/*),)
-	mkdir -p ${ORG_MODE_DIR}
-	wget http://orgmode.org/org-9.0.2.tar.gz
-	tar zxvf org-9.0.2.tar.gz
-	rm -rf org-9.0.2.tar.gz
-	mv org-9.0.2 ${ORG_MODE_DIR}
-	ln -s ${ORG_MODE_DIR}/org-9.0.2/ ${ORG_MODE_DIR}/org-8.2.10
-else
-	@echo "org-mode org-8.2.10 already present"
-endif
-
-init: pull-literate-tools
-	rm -rf ${BUILD_DIR}
-	mkdir -p ${BUILD_DIR} ${CODE_DIR}
-
-build: init write-version
-	emacs  --script elisp/publish.el
-
-ign:
-	rsync -a ${SRC_DIR}/${ORG_DIR} ${BUILD_DIR}/docs
-	rsync -a ${SRC_DIR}/${STYLE_DIR} ${BUILD_DIR}/docs
-	rm -f ${BUILD_DIR}/docs/*.html~
 
 # get the latest commit hash and its subject line
 # and write that to the VERSION file
@@ -70,6 +63,13 @@ write-version:
 	echo -n "Built from commit: " > ${CODE_DIR}/${VER_FILE}
 	echo `git rev-parse HEAD` >> ${CODE_DIR}/${VER_FILE}
 	echo `git log --pretty=format:'%s' -n 1` >> ${CODE_DIR}/${VER_FILE}
+
+clean-literate:
+	rm -rf ${ELISP_DIR}
+	rm -rf src/${ORG_DIR}
+	rm -rf src/${STYLE_DIR}
+	rm -rf ${LITERATE_DIR}
+
 
 clean:	clean-literate
 	rm -rf ${BUILD_DIR}
