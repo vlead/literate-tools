@@ -56,15 +56,19 @@ else
 	@echo "Literate support code already present"
 endif
 
+# variable that will exist of git command exists
+# solution from: http://stackoverflow.com/questions/5618615/check-if-a-program-exists-from-a-makefile
+GIT_EXISTS := $(shell command -v git 2> /dev/null)
 
 # get the latest commit hash and its subject line
 # and write that to the VERSION file
 write-version:
-	echo -n "Built from commit: " > ${CODE_DIR}/${VER_FILE}
+ifdef GIT_EXISTS
 	# allow these to fail since the parent folder may not have a git repo.
+	echo -n "Built from commit: " > ${CODE_DIR}/${VER_FILE}
 	- echo `git rev-parse HEAD` >> ${CODE_DIR}/${VER_FILE}
 	- echo `git log --pretty=format:'%s' -n 1` >> ${CODE_DIR}/${VER_FILE}
-
+endif
 clean-literate:
 	rm -rf ${ELISP_DIR}
 	rm -rf src/${ORG_DIR}
