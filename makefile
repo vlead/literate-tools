@@ -61,8 +61,9 @@ endif
 # and write that to the VERSION file
 write-version:
 	echo -n "Built from commit: " > ${CODE_DIR}/${VER_FILE}
-	echo `git rev-parse HEAD` >> ${CODE_DIR}/${VER_FILE}
-	echo `git log --pretty=format:'%s' -n 1` >> ${CODE_DIR}/${VER_FILE}
+	# allow these to fail since the parent folder may not have a git repo.
+	- echo `git rev-parse HEAD` >> ${CODE_DIR}/${VER_FILE}
+	- echo `git log --pretty=format:'%s' -n 1` >> ${CODE_DIR}/${VER_FILE}
 
 clean-literate:
 	rm -rf ${ELISP_DIR}
