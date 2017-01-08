@@ -14,7 +14,15 @@
 #+HTML_LINK_UP: ../index.html
 #+HTML_LINK_HOME: ../../index.html
 
-#+INFOJS_OPT: view:info toc:t ltoc:t tdepth:1 mouse:underline buttons:0 path:../../style/js/org-info.js
-#+HTML_HEAD:  <link rel="stylesheet" type="text/css" href="../../style/css/worg-style.css" />
-#+HTML_HEAD_EXTRA:  <link rel="stylesheet" type="text/css" href="../../style/css/override.css" />
-#+HTML_HEAD_EXTRA:  <link rel="icon" type="image/png" href="../../style/img/favicon/popl.png" />
+# #+INFOJS_OPT: view:info toc:t ltoc:t tdepth:1 mouse:underline buttons:0 path:../../style/js/org-info.js
+# #+HTML_HEAD:  <link rel="stylesheet" type="text/css" href="../../style/css/worg-style.css" />
+# #+HTML_HEAD_EXTRA:  <link rel="stylesheet" type="text/css" href="../../style/css/override.css" />
+# #+HTML_HEAD_EXTRA:  <link rel="icon" type="image/png" href="../../style/img/favicon/popl.png" />
+
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../../style/readtheorg/css/htmlize.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../../style/readtheorg/css/readtheorg.css"/>
+
+#+HTML_HEAD: <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+#+HTML_HEAD: <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="../../style/lib/js/jquery.stickytableheaders.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="../../style/readtheorg/js/readtheorg.js"></script>
