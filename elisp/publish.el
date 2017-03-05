@@ -125,9 +125,6 @@
 ;;; static stuff like images etc.
 (defvar org-static '())
 
-;;; tangled-code
-(defvar org-tangled '())
-
 ;;; main project
 (defvar prj '())
 
@@ -154,12 +151,23 @@
 		:publishing-function org-publish-attachment
 		))
 
-;;; tangles code out from the *src-dir*
-(setq org-code
-	  `("org-code"
+;;; tangles code out from the *src-dir* into *code-dir*
+(setq org-code-in-code
+	  `("org-code-in-code"
 		:base-directory ,*src-dir*
 		:base-extension "org"
 		:publishing-directory ,*code-dir*
+		:recursive t
+		:publishing-function tangle-wrapper
+		))
+
+
+;;; tangles code out from the *src-dir* into *docs-dir*
+(setq org-code-in-docs
+	  `("org-code-in-docs"
+		:base-directory ,*src-dir*
+		:base-extension "org"
+		:publishing-directory ,*docs-dir*
 		:recursive t
 		:publishing-function tangle-wrapper
 		))
@@ -169,14 +177,15 @@
 		(
 		 "org-docs" 
 		 "org-static" 
-		 "org-code"
+		 "org-code-in-code"
+		 "org-code-in-docs"
 		 )))
 
 (require 'ox-publish)
 (load-file "./elisp/htmlize.el")
 
 (setq org-publish-project-alist
-      (list org-docs org-static org-code org-tangled prj))
+      (list org-docs org-static org-code-in-code org-code-in-docs prj))
 
 (org-publish-project
  prj  ; project name
