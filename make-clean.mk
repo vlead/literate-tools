@@ -1,2 +1,2 @@
 clean: 
-	\rm -rf *.html *.js *.css
+	\rm -rf *.html *.js *.css *.rkt *.py *.pyc
