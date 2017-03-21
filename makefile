@@ -21,11 +21,10 @@ all:  check-org build
 check-org:
 ifeq ($(wildcard ${ORG_MODE_DIR}/org-8.2.10/*),)
 	mkdir -p ${ORG_MODE_DIR}
-	wget http://orgmode.org/org-9.0.2.tar.gz
-	tar zxvf org-9.0.2.tar.gz
-	rm -rf org-9.0.2.tar.gz
-	mv org-9.0.2 ${ORG_MODE_DIR}
-	ln -s ${ORG_MODE_DIR}/org-9.0.2/ ${ORG_MODE_DIR}/org-8.2.10
+	wget http://orgmode.org/org-8.2.10.tar.gz
+	tar zxvf org-8.2.10.tar.gz
+	rm -rf org-8.2.10.tar.gz
+	mv org-8.2.10 ${ORG_MODE_DIR}
 else
 	@echo "org-mode org-8.2.10 already present"
 endif
