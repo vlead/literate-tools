@@ -1,0 +1,24 @@
+# literate-tools
+All the sources required to tangle code and create html docs
+
+* Setup Emacs
+  
+  1. When tangling inline, using =C-v t=, indentation maight not be preserved.
+     To ensure indentation is preserved, add the following line to the emacs
+     initialization file. Most probably it will =~/.emacs=
+
+     #+BEGIN_EXAMPLE
+     (setq org-src-preserve-indentation t)
+     #+END_EXAMPLE
+
+  2. To enable faster build, add the following line to the same initialization
+     file
+     #+BEGIN_EXAMPLE
+     (defvar org-babel-use-quick-and-dirty-noweb-expansion t
+     "Set to true to use regular expressions to expand noweb references.
+     This results in much faster noweb reference expansion but does
+     not properly allow code blocks to inherit the \":noweb-ref\"
+     header argument from buffer or subtree wide properties.")
+     #+END_EXAMPLE
+
+
