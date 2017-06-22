@@ -148,7 +148,7 @@
 (setq org-static
 	  `("org-static"
 		:base-directory ,*src-dir*
-		:base-extension "png\\|css\\|js\\|txt\\|jpg\\|svg"
+		:base-extension "png\\|css\\|js\\|txt\\|jpg\\|svg\\|pdf"
 		:publishing-directory ,*docs-dir*
 		:recursive t
 		:publishing-function org-publish-attachment
