@@ -1,7 +1,7 @@
 # literate-tools
 All the sources required to tangle code and create html docs
 
-* Setup Emacs
+* Setup Emacs for Incremental Build
   
   1. When tangling inline, using =C-v t=, indentation maight not be preserved.
      To ensure indentation is preserved, add the following line to the emacs
@@ -21,4 +21,38 @@ All the sources required to tangle code and create html docs
      header argument from buffer or subtree wide properties.")
      #+END_EXAMPLE
 
+  3. Copy the following files from =elisp= directory to =~/.emacs.d/custom= directory
 
+     #+BEGIN_EXAMPLE
+     cd.el
+     dired-operations.el       
+     incr-build.el             
+     tangle-with-publish-dir.el
+     #+END_EXAMPLE
+
+  4. Make the following changes to your =.emacs= file
+
+     #+BEGIN_EXAMPLE
+     (require 'cl)
+     ;;; dired
+     ;;; =====
+     ;; for changing to the directory of the buffer in shell
+     (load "~/.emacs.d/custom/cd")
+     (load "~/.emacs.d/custom/dired-operations")
+     (load "~/.emacs.d/custom/incr-build")
+     (load "~/.emacs.d/custom/tangle-with-publish-dir")
+
+     (require 'incr-build)
+     (setq dired-dwim-target t)
+     (setq dired-copy-preserve-time t)
+     (setq dired-recursive-copies 'top)
+
+     (define-key dired-mode-map "b" 'browse-url-of-dired-file)
+     (load "dired-x")
+     (define-key dired-mode-map "z" 'dired-remote-copy)
+     (define-key dired-mode-map "r" 'rsync-se-101)
+     (define-key dired-mode-map "\C-ca" 'dired-acroread-file)
+     (define-key dired-mode-map "\C-cd" 'cd-buffer-dir)
+     #+END_EXAMPLE
+
+     
