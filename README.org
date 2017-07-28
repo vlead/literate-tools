@@ -82,13 +82,3 @@ All the sources required to tangle code and create html docs
      prj/build/code/file2.py
 
      #+END_EXAMPLE
-
- 
-
-     
-
-
-  5. How to Incrementally build
-     Please refer to [[../elisp/incr-build.el]]
-
-     
