@@ -55,6 +55,39 @@ All the sources required to tangle code and create html docs
      (define-key dired-mode-map "\C-cd" 'cd-buffer-dir)
      #+END_EXAMPLE
 
+* Build Incrementally
+  Incremental copying and tangling of org files to build directory 
+
+  1. In dired mode use key P to push files code files to
+     build/code directory.
+     #+BEGIN_EXAMPLE
+     If you are in dired mode in directory prj/src and mark 
+     the files
+     prj/src/file1.py and
+     prj/src/file2.py
+     and then hit P, they get copied to prj/build/code
+     #+END_EXAMPLE
+     
+
+  2. Alternatively, from dired mode, use key T to tangle org
+     files and push the tangled code to build/code directory
+
+     #+BEGIN_EXAMPLE
+     If you are in dired mode in directory prj/src and mark
+     file1.org and file2.org, and these files tangle out file1.py and file2.py
+     then hit T, they get copied to 
+
+     They get copied to 
+     prj/build/code/file1.py
+     prj/build/code/file2.py
+
+     #+END_EXAMPLE
+
+ 
+
+     
+
+
   5. How to Incrementally build
      Please refer to [[../elisp/incr-build.el]]
 
