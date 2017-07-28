@@ -55,4 +55,7 @@ All the sources required to tangle code and create html docs
      (define-key dired-mode-map "\C-cd" 'cd-buffer-dir)
      #+END_EXAMPLE
 
+  5. How to Incrementally build
+     Please refer to [[../elisp/incr-build.el]]
+
      
