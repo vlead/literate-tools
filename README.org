@@ -67,7 +67,6 @@ All the sources required to tangle code and create html docs
      prj/src/file2.py
      and then hit P, they get copied to prj/build/code
      #+END_EXAMPLE
-     
 
   2. Alternatively, from dired mode, use key T to tangle org
      files and push the tangled code to build/code directory
