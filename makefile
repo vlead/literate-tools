@@ -73,6 +73,7 @@ clean-literate:
 	rm -rf src/${ORG_DIR}
 	rm -rf src/${STYLE_DIR}
 	rm -rf ${LITERATE_DIR}
+	rm -rf src/sitemap.org
 
 
 clean:	clean-literate
