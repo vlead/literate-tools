@@ -7,6 +7,8 @@ VER_FILE=VERSION
 ORG_MODE_DIR=~/emacs/lisp
 LITERATE_TOOLS="https://github.com/vlead/literate-tools.git"
 LITERATE_DIR=literate-tools
+DEFAULT=default
+READTHEORG=readtheorg
 ELISP_DIR=elisp
 ORG_DIR=org-templates
 STYLE_DIR=style
@@ -15,6 +17,8 @@ DOC_DIR=build/docs
 SRC_DIR=src
 PWD=$(shell pwd)
 STATUS=0
+readtheorg=false
+export readtheorg
 
 all:  check-org build
 
@@ -37,11 +41,17 @@ init: mk-symlinks
 	rm -rf ${BUILD_DIR}
 	mkdir -p ${BUILD_DIR} ${CODE_DIR}
 
-
 mk-symlinks:  pull-literate-tools
+        ifeq ($(readtheorg),true)        
 	(ln -sf ${LITERATE_DIR}/${ELISP_DIR}; \
-	ln -sf ../${LITERATE_DIR}/${ORG_DIR} ${SRC_DIR}; \
-	ln -sf ../${LITERATE_DIR}/${STYLE_DIR} ${SRC_DIR})
+	ln -sf ${LITERATE_DIR}/${ORG_DIR}/${READTHEORG} ${SRC_DIR}/${ORG_DIR}; \
+	ln -sf ${LITERATE_DIR}/${STYLE_DIR}/${READTHEORG} ${SRC_DIR}/${STYLE_DIR})
+        else
+	(ln -sf ${LITERATE_DIR}/${ELISP_DIR}; \
+	ln -sf ${LITERATE_DIR}/${DEFAULT}/${ORG_DIR} ${SRC_DIR}; \
+	ln -sf ${LITERATE_DIR}/${DEFAULT}/${STYLE_DIR} ${SRC_DIR})
+        endif
+
 
 pull-literate-tools:
 	@echo "checking for literate support ..."
@@ -55,6 +65,10 @@ else
 	@echo "Literate support code already present"
 endif
 
+build-literate:
+	mkdir -p 
+        ifeq ($(readtheorg),true)        
+
 # variable that will exist of git command exists
 # solution from: http://stackoverflow.com/questions/5618615/check-if-a-program-exists-from-a-makefile
 GIT_EXISTS := $(shell command -v git 2> /dev/null)
@@ -63,7 +77,7 @@ GIT_EXISTS := $(shell command -v git 2> /dev/null)
 # and write that to the VERSION file
 write-version:
 ifdef GIT_EXISTS
-	# allow these to fail since the parent folder may not have a git repo.
+	 # allow these to fail since the parent folder may not have a git repo.
 	echo -n "Built from commit: " > ${CODE_DIR}/${VER_FILE}
 	- echo `git rev-parse HEAD` >> ${CODE_DIR}/${VER_FILE}
 	- echo `git log --pretty=format:'%s' -n 1` >> ${CODE_DIR}/${VER_FILE}

@@ -81,3 +81,6 @@ All the sources required to tangle code and create html docs
      prj/build/code/file2.py
 
      #+END_EXAMPLE
+* readtheorg
+  We moved in files from [[https://github.com/fniessen/org-html-themes][read-the-org]] to have another
+  styling for document publishing.
