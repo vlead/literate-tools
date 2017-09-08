@@ -82,5 +82,15 @@ All the sources required to tangle code and create html docs
 
      #+END_EXAMPLE
 * readtheorg
-  We moved in files from [[https://github.com/fniessen/org-html-themes][read-the-org]] to have another
+  File from [[https://github.com/fniessen/org-html-themes][read-the-org]] are picked up to have another
   styling for document publishing.
+
+* Usage
+** To build with the default style
+#+BEGIN_EXAMPLE
+make -k all
+#+END_EXAMPLE
+** To build with =readtheorg= style
+#+BEGIN_EXAMPLE
+make readtheorg=true -k all
+#+END_EXAMPLE
