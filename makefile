@@ -65,10 +65,6 @@ else
 	@echo "Literate support code already present"
 endif
 
-build-literate:
-	mkdir -p 
-        ifeq ($(readtheorg),true)        
-
 # variable that will exist of git command exists
 # solution from: http://stackoverflow.com/questions/5618615/check-if-a-program-exists-from-a-makefile
 GIT_EXISTS := $(shell command -v git 2> /dev/null)
