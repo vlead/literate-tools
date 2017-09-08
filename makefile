@@ -42,13 +42,14 @@ init: mk-symlinks
 	mkdir -p ${BUILD_DIR} ${CODE_DIR}
 
 mk-symlinks:  pull-literate-tools
-        ifeq ($(readtheorg),true)        
 	(ln -sf ${LITERATE_DIR}/${ELISP_DIR}; \
-	ln -sf ../${LITERATE_DIR}/${ORG_DIR}/${READTHEORG} ${SRC_DIR}/${ORG_DIR}; \
+        rm -rf ${SRC_DIR}/${ORG_DIR}; \
+        rm -rf ${SRC_DIR}/${STYLE_DIR})
+        ifeq ($(readtheorg),true)        
+	(ln -sf ../${LITERATE_DIR}/${ORG_DIR}/${READTHEORG} ${SRC_DIR}/${ORG_DIR}; \
 	ln -sf ../${LITERATE_DIR}/${STYLE_DIR}/${READTHEORG} ${SRC_DIR}/${STYLE_DIR})
         else
-	(ln -sf ${LITERATE_DIR}/${ELISP_DIR}; \
-	ln -sf ../${LITERATE_DIR}/${ORG_DIR}/${DEFAULT} ${SRC_DIR}/${ORG_DIR}; \
+	(ln -sf ../${LITERATE_DIR}/${ORG_DIR}/${DEFAULT} ${SRC_DIR}/${ORG_DIR}; \
 	ln -sf ../${LITERATE_DIR}/${STYLE_DIR}/${DEFAULT} ${SRC_DIR}/${STYLE_DIR})
         endif
 
