@@ -23,18 +23,18 @@
 
     #+BEGIN_EXAMPLE
     illustrate-literate/
-        desing.org
-        index.org
-        requirements.org
-        runtime
-          index.org
+    |---desing.org
+    |---index.org
+    |---requirements.org
+    |---runtime
+      |---index.org
     #+END_EXAMPLE
 
   - Build :: Since code is situated within the narrative,
-       one has to [[http://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html][build]] from these documents - the code and
-       the documents - for publication.  While the code is
-       understood by the compiler, the documents published
-       in =html= are consumed by humans.
+       one has to [[http://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html][build]] from these documents to generate
+       code and documents for publication.  While the code
+       is understood by the compiler, the documents
+       published in =html= are consumed by humans.
 
   - Commonality :: Since the above build process is common
        for every project written in literate style, this
@@ -48,13 +48,13 @@
     
        #+BEGIN_EXAMPLE
        illustrate-literate/
-           desing.org
-           index.org
-           init.sh
-           makefile
-           requirements.org
-           runtime
-            index.org
+       |--- desing.org
+       |--- index.org
+       |--- init.sh
+       |--- makefile
+       |--- requirements.org
+       |--- runtime
+          |---index.org
        #+END_EXAMPLE
 
   - init.sh :: Since =literate-tools= is a repository on
@@ -119,24 +119,24 @@
     make readtheorg=true -k all
     #+END_EXAMPLE
 
-* Build Directory and .gitignore
-  The build process generates a =build= folder containing
-  =docs= and =code= directory.  This build folder is not
-  version controlled since it is generated.  To allow =git=
-  to ignore generated files, we take rescue in =.gitignore=
-  by adding the following lines. 
+  - Build Directory and .gitignore ::   The build process
+       generates a =build= folder containing =docs= and
+       =code= directories.  This build folder is not version
+       controlled since it is generated.  To allow =git= to
+       ignore generated files, we take rescue in
+       =.gitignore= by adding the following lines.
 
-  #+BEGIN_EXAMPLE
-  build/
-  elisp/
-  org-templates/
-  style/
-  src/org-templates
-  src/style
-  sitemap*
-  elisp          
-  literate-tools/
-  #+END_EXAMPLE
+    #+BEGIN_EXAMPLE
+    build/
+    elisp/
+    org-templates/
+    style/
+    src/org-templates
+    src/style
+    sitemap*
+    elisp          
+    literate-tools/
+    #+END_EXAMPLE
 
 * Setup Emacs for Incremental Build
   
