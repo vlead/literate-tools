@@ -23,11 +23,11 @@
 
     #+BEGIN_EXAMPLE
     illustrate-literate/
-    ©À©¤©¤ desing.org
-    ©À©¤©¤ index.org
-    ©À©¤©¤ requirements.org
-    ©¸©¤©¤ runtime
-      ©¸©¤©¤ index.org
+        desing.org
+        index.org
+        requirements.org
+        runtime
+          index.org
     #+END_EXAMPLE
 
   - Build :: Since code is situated within the narrative,
@@ -48,13 +48,13 @@
     
        #+BEGIN_EXAMPLE
        illustrate-literate/
-       ©À©¤©¤ desing.org
-       ©À©¤©¤ index.org
-       ©À©¤©¤ init.sh
-       ©À©¤©¤ makefile
-       ©À©¤©¤ requirements.org
-       ©¸©¤©¤ runtime
-        ©¸©¤©¤ index.org
+           desing.org
+           index.org
+           init.sh
+           makefile
+           requirements.org
+           runtime
+            index.org
        #+END_EXAMPLE
 
   - init.sh :: Since =literate-tools= is a repository on
@@ -221,6 +221,3 @@
      prj/build/code/file2.py
 
      #+END_EXAMPLE
-
-
-
