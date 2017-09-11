@@ -17,17 +17,19 @@
 
 * How to use =literate-tools=
 
-  - Example :: Let us work with an example to illustrate the
+  - Example :: Let us work with an [[https://github.com/vlead/illustrate-literate][example]] to illustrate the
        use of =literate-tools=.  In this example, the
        project is named =illustrate-literate=.
 
     #+BEGIN_EXAMPLE
     illustrate-literate/
-    |---desing.org
-    |---index.org
-    |---requirements.org
-    |---runtime
-      |---index.org
+    |--- README.org
+    |--- src
+         |--- index.org
+         |--- requirements.org
+         |--- design.org
+         |--- runtime
+              |--- index.org
     #+END_EXAMPLE
 
   - Build :: Since code is situated within the narrative,
@@ -46,20 +48,22 @@
   - New Structure :: The project has added two files to
        incorporate =literate-tools=.
     
-       #+BEGIN_EXAMPLE
-       illustrate-literate/
-       |--- desing.org
-       |--- index.org
-       |--- init.sh
-       |--- makefile
-       |--- requirements.org
-       |--- runtime
-          |---index.org
-       #+END_EXAMPLE
+    #+BEGIN_EXAMPLE
+    illustrate-literate/
+    |--- init.sh
+    |--- makefile
+    |--- README.org
+    |--- src
+         |--- index.org
+         |--- requirements.org
+         |--- design.org
+         |--- runtime
+              |--- index.org
+    #+END_EXAMPLE
 
   - init.sh :: Since =literate-tools= is a repository on
        github, this file facilitates cloning of
-       =literate-tools.  Please refer to [[https://github.com/vlead/vlabs-platform/blob/master/init.sh][init.sh]] that is
+       =literate-tools.  Please refer to [[https://github.com/vlead/illustrate-literate/blob/master/init.sh][init.sh]] that is
        used by an existing project written in literate
        style.
 
@@ -80,7 +84,7 @@
        #+END_EXAMPLE
 
   - makefile :: Invoke the literate-build from this
-       =makefile=.  Refer to a sample [[https://github.com/vlead/vlabs-platform/blob/master/makefile][makefile]] for
+       =makefile=.  Refer to a sample [[https://github.com/vlead/illustrate-literate/blob/master/makefile][makefile]] for
        reference. 
 
        #+BEGIN_EXAMPLE
