@@ -32,6 +32,10 @@
               |--- index.org
     #+END_EXAMPLE
 
+  - Strcuture of the repo :: The repository must have a
+       =src= folder and all the source files (read here as
+       org files) must be under =src= directory. 
+
   - Build :: Since code is situated within the narrative,
        one has to [[http://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html][build]] from these documents to generate
        code and documents for publication.  While the code
