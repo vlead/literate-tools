@@ -1,18 +1,164 @@
-# literate-tools
-All the sources required to tangle code and create html docs
+#+TITLE: README for Literate Tools
+#+AUTHOR: VLEAD
+#+DATE: [2017-09-09 Sat]
+#+SETUPFILE: ./org-templates/level-0.org
+#+TAGS: boilerplate(b)
+#+EXCLUDE_TAGS: boilerplate
+#+OPTIONS: ^:nil
+
+
+* Introduction
+  =literate-tools= provide support for [[http://en.wikipedia.org/wiki/Literate_programming][literate programming]]
+  by:
+  1. building documentation in =html= and
+  2. tangling out code separately from [[http://orgmode.org/worg/index.html][org]] files.  
+  Please refer to [[http://orgmode.org/worg/org-contrib/babel/index.html][Org Babel]] for help on writing literate
+  programs in =org= files.
+
+* How to use =literate-tools=
+
+  - Example :: Let us work with an [[https://github.com/vlead/illustrate-literate][example]] to illustrate the
+       use of =literate-tools=.  In this example, the
+       project is named =illustrate-literate=.
+
+    #+BEGIN_EXAMPLE
+    illustrate-literate/
+    |--- README.org
+    |--- src
+         |--- index.org
+         |--- requirements.org
+         |--- design.org
+         |--- runtime
+              |--- index.org
+    #+END_EXAMPLE
+
+  - Strcuture of the repo :: The repository must have a
+       =src= folder and all the source files (read here as
+       org files) must be under =src= directory. 
+
+  - Build :: Since code is situated within the narrative,
+       one has to [[http://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html][build]] from these documents to generate
+       code and documents for publication.  While the code
+       is understood by the compiler, the documents
+       published in =html= are consumed by humans.
+
+  - Commonality :: Since the above build process is common
+       for every project written in literate style, this
+       commonality is possessed by the =literate-tools=.
+       The next step is to incorporate =literate-tools= in
+       the project.  This is done by incorporating couple of
+       files - =makefile= and =init.sh=.
+
+  - New Structure :: The project has added two files to
+       incorporate =literate-tools=.
+    
+    #+BEGIN_EXAMPLE
+    illustrate-literate/
+    |--- init.sh
+    |--- makefile
+    |--- README.org
+    |--- src
+         |--- index.org
+         |--- requirements.org
+         |--- design.org
+         |--- runtime
+              |--- index.org
+    #+END_EXAMPLE
+
+  - init.sh :: Since =literate-tools= is a repository on
+       github, this file facilitates cloning of
+       =literate-tools.  Please refer to [[https://github.com/vlead/illustrate-literate/blob/master/init.sh][init.sh]] that is
+       used by an existing project written in literate
+       style.
+
+       #+BEGIN_EXAMPLE
+       #!/bin/bash
+       if [ -d literate-tools ]; then
+           echo "literate-tools already present"
+          (cd literate-tools; git pull)
+       else
+          git clone https://github.com/vlead/literate-tools.git
+       fi
+
+       if [ -L tangle-make ]; then
+          echo "symlinked makefile already present"
+       else 
+          ln -sf literate-tools/makefile tangle-make
+       fi
+       #+END_EXAMPLE
+
+  - makefile :: Invoke the literate-build from this
+       =makefile=.  Refer to a sample [[https://github.com/vlead/illustrate-literate/blob/master/makefile][makefile]] for
+       reference. 
+
+       #+BEGIN_EXAMPLE
+       #SHELL := /bin/bash
+
+       CODE_DIR=build/code
+       PWD=$(shell pwd)
+       LINT_FILE=${PWD}/${CODE_DIR}/lint_output
+       EXIT_FILE=${PWD}/exit.txt
+       STATUS=0
+       
+       all:  build
+       
+       init: 
+              	./init.sh
+
+       build: init
+              	make -f tangle-make -k all
+
+       clean:	
+                make -f tangle-make clean
+       #+END_EXAMPLE
+
+  - Build with default style :: Run the following command to
+       build the documentation with the default style.
+    
+    #+BEGIN_EXAMPLE
+    make -k all
+    #+END_EXAMPLE
+
+  - Build with =readtheorg= style :: Run the following
+       command to build the documentation with the
+       =readtheorg= style.
+
+    #+BEGIN_EXAMPLE
+    make readtheorg=true -k all
+    #+END_EXAMPLE
+
+  - Build Directory and .gitignore ::   The build process
+       generates a =build= folder containing =docs= and
+       =code= directories.  This build folder is not version
+       controlled since it is generated.  To allow =git= to
+       ignore generated files, we take rescue in
+       =.gitignore= by adding the following lines.
+
+    #+BEGIN_EXAMPLE
+    build/
+    elisp/
+    org-templates/
+    style/
+    src/org-templates
+    src/style
+    sitemap*
+    elisp          
+    literate-tools/
+    #+END_EXAMPLE
 
 * Setup Emacs for Incremental Build
   
-  1. When tangling inline, using =C-v t=, indentation maight not be preserved.
-     To ensure indentation is preserved, add the following line to the emacs
-     initialization file. Most probably it will =~/.emacs=
+  1. When tangling inline, using =C-v t=, indentation maight
+     not be preserved.  To ensure indentation is preserved,
+     add the following line to the emacs initialization
+     file. Most probably it will =~/.emacs=
 
      #+BEGIN_EXAMPLE
      (setq org-src-preserve-indentation t)
      #+END_EXAMPLE
 
-  2. To enable faster build, add the following line to the same initialization
-     file
+  2. To enable faster build, add the following line to the
+     same initialization file
      #+BEGIN_EXAMPLE
      (defvar org-babel-use-quick-and-dirty-noweb-expansion t
      "Set to true to use regular expressions to expand noweb references.
@@ -21,7 +167,8 @@ All the sources required to tangle code and create html docs
      header argument from buffer or subtree wide properties.")
      #+END_EXAMPLE
 
-  3. Copy the following files from =elisp= directory to =~/.emacs.d/custom= directory
+  3. Copy the following files from =elisp= directory to
+     =~/.emacs.d/custom= directory
 
      #+BEGIN_EXAMPLE
      cd.el
@@ -56,7 +203,8 @@ All the sources required to tangle code and create html docs
      #+END_EXAMPLE
 
 * Build Incrementally
-  Incremental copying and tangling of org files to build directory 
+  Incremental copying and tangling of org files to build
+  directory
 
   1. In dired mode use key P to push files code files to
      build/code directory.
