@@ -44,15 +44,17 @@ init: mk-symlinks
 mk-symlinks:  pull-literate-tools
 	(ln -sf ${LITERATE_DIR}/${ELISP_DIR}; \
         rm -rf ${SRC_DIR}/${ORG_DIR}; \
-        rm -rf ${SRC_DIR}/${STYLE_DIR})
+        rm -rf ${SRC_DIR}/${STYLE_DIR}; \
+	mkdir -p ${SRC_DIR}/${ORG_DIR}; \
+        mkdir -p ${SRC_DIR}/${STYLE_DIR};)
         ifeq ($(readtheorg),true)        
-	(ln -sf ../${LITERATE_DIR}/${ORG_DIR}/${READTHEORG} ${SRC_DIR}/${ORG_DIR}; \
-	ln -sf ../${LITERATE_DIR}/${STYLE_DIR}/${READTHEORG} ${SRC_DIR}/${STYLE_DIR})
+	(rsync -a ${LITERATE_DIR}/${ORG_DIR}/${READTHEORG}/ ${SRC_DIR}/${ORG_DIR}/; \
+	rsync -a ${LITERATE_DIR}/${STYLE_DIR}/${READTHEORG}/ ${SRC_DIR}/${STYLE_DIR}/)
         else
-	(ln -sf ../${LITERATE_DIR}/${ORG_DIR}/${DEFAULT} ${SRC_DIR}/${ORG_DIR}; \
-	ln -sf ../${LITERATE_DIR}/${STYLE_DIR}/${DEFAULT} ${SRC_DIR}/${STYLE_DIR})
+	(rsync -a ${LITERATE_DIR}/${ORG_DIR}/${DEFAULT}/ ${SRC_DIR}/${ORG_DIR}; \
+	rsync -a ${LITERATE_DIR}/${STYLE_DIR}/${DEFAULT}/ ${SRC_DIR}/${STYLE_DIR})
         endif
-
+	rsync -a ${LITERATE_DIR}/${ORG_DIR}/tex-macros.org ${SRC_DIR}/${ORG_DIR}/
 
 pull-literate-tools:
 	@echo "checking for literate support ..."
