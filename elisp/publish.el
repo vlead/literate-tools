@@ -142,6 +142,7 @@
 		:headline-levels 4		  ; Just the default for this project.
 		:auto-preamble t
 		:auto-sitemap t
+		:sitemap-title " "
 		))
 
 ;;; copies non org (static) files  to docs
@@ -177,23 +178,6 @@
 
 (setq org-publish-project-alist
       (list org-docs org-static org-code org-tangled prj))
-
-
-
-(defun get-string-from-file (filePath)
-  "Return filePath's file content."
-  (with-temp-buffer
-    (insert-file-contents filePath)
-    (buffer-string)))
-
-(defvar header-file (concat *src-dir* "header.html"))
-(defvar footer-file (concat *src-dir* "footer.html"))
-
-;; Read the preamble and postamble from files.
-(if (file-exists-p header-file)
-	(setq org-html-preamble (get-string-from-file header-file)))
-(if (file-exists-p footer-file)
-	(setq org-html-postamble (get-string-from-file footer-file)))
 
 (org-publish-project
  prj  ; project name

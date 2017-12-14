@@ -9,7 +9,7 @@ LITERATE_TOOLS="https://github.com/vlead/literate-tools.git"
 LITERATE_DIR=literate-tools
 DEFAULT=default
 READTHEORG=readtheorg
-READTHELAB=readthelab
+LABTHEME=labtheme
 ELISP_DIR=elisp
 ORG_DIR=org-templates
 STYLE_DIR=style
@@ -20,8 +20,8 @@ PWD=$(shell pwd)
 STATUS=0
 readtheorg=false
 export readtheorg
-readthelab=false
-export readthelab
+labtheme=false
+export labtheme
 
 all:  check-org build
 
@@ -53,9 +53,9 @@ mk-symlinks:  pull-literate-tools
         ifeq ($(readtheorg),true)        
 	(rsync -a ${LITERATE_DIR}/${ORG_DIR}/${READTHEORG}/ ${SRC_DIR}/${ORG_DIR}/; \
 	rsync -a ${LITERATE_DIR}/${STYLE_DIR}/${READTHEORG}/ ${SRC_DIR}/${STYLE_DIR}/)
-        else ifeq ($(readthelab),true)        
-	(rsync -a ${LITERATE_DIR}/${ORG_DIR}/${READTHELAB}/ ${SRC_DIR}/${ORG_DIR}/; \
-	rsync -a ${LITERATE_DIR}/${STYLE_DIR}/${READTHELAB}/ ${SRC_DIR}/${STYLE_DIR}/)
+        else ifeq ($(labtheme),true)        
+	(rsync -a ${LITERATE_DIR}/${ORG_DIR}/${LABTHEME}/ ${SRC_DIR}/${ORG_DIR}/; \
+	rsync -a ${LITERATE_DIR}/${STYLE_DIR}/${LABTHEME}/ ${SRC_DIR}/${STYLE_DIR}/)
         else
 	(rsync -a ${LITERATE_DIR}/${ORG_DIR}/${DEFAULT}/ ${SRC_DIR}/${ORG_DIR}; \
 	rsync -a ${LITERATE_DIR}/${STYLE_DIR}/${DEFAULT}/ ${SRC_DIR}/${STYLE_DIR})
