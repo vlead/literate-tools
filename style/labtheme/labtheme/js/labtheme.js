@@ -97,7 +97,34 @@ $(document).ready(function() {
   str = str + iHtml;
   str = str + '</ul></div></div></nav>';
   $('body').prepend(str);
+
+
+  contents.children('li').children('ul').removeClass("c-dropdown-menu");
+  contents.children('li').children('ul').addClass("footer-links");
+
+  str = `<footer class="navbar navbar-default">
+            <div class="container-fluid">`;
+  cld = contents.children();
+  for(var i=0;i<cld.length;i++) {
+    if(i%4 == 0) {
+      str = str + '<div class="row">';
+    }
+    sib1 = cld[i].firstElementChild;
+    sib2 = cld[i].firstElementChild.nextElementSibling;
+    iHtml = cld[i].innerHTML.slice(text.length);
+
+    col = '<div class="col-md-3"><div class="footer-heading">';
+    col = col + '<a href="' + sib1.attributes.href.value + '">' + sib1.text + '</a></div>';
+    if(sib2) col = col + sib2.outerHTML;
+    col = col + '</div>';
+    str = str + col;
+    if(i%4 == 3) {
+      str = str + '</div>';
+    }
+  }
+  str = str + '</div></footer>';
   contents[0].innerHTML = '';
+  $('#postamble').before(str);
 
   $('.c-dropdown').hover(function(){
     if($(this).find('ul.c-dropdown-menu')[0]) {
