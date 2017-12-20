@@ -49,25 +49,29 @@ $(document).ready(function() {
 
   $('.dropdown').hover(function(){$('this .dropdown-toggle').dropdown('toggle') });
 
-  contents = $('ul.org-ul').first();
-
-  contents.children('li').addClass("c-dropdown");
-  contents.children('li').children('ul').addClass("c-dropdown-menu");
-  contents.children('li').children('ul').removeClass("org-ul");
-
-  contents.find('a').each(function() {
+  // Handling the top navbar
+  main = $('ul.org-ul')[0];
+  $(main).find('a').each(function() {
     this.attributes['href'].value = '/' + this.attributes['href'].value;
-  })
+  });
+  contents = $(main.outerHTML)[0];
+  $('ul.org-ul').first().addClass('nav navbar-nav');
+  childs = main.children;
+  for(idx=0; idx<childs.length;idx++) {
+    cld = childs[idx].children[0];
+    if(cld.tagName == 'A');
+    else if(cld.tagName == 'UL') {
+      cld.attributes.class.value = "dropdown-menu multi-level";
+      $(cld).find('li').has('ul').addClass('dropdown-submenu');
+      $(cld).find('ul').addClass('dropdown-menu');
+      text = childs[idx].innerText.split('\n')[0];
+      link = `<a href="#" class="dropdown-toggle" data-toggle="dropdown">`+capitalize(text)+`<b class="caret"></b></a>`
+      childs[idx].innerHTML = link + cld.outerHTML;
+    };
+  };
+  iHtml = main.outerHTML;
+  $('ul.org-ul').removeClass('org-ul');
 
-  cld = contents.children().has("ul");
-  for(var i=0;i<cld.length;i++) {
-    text = cld[i].innerText;
-    iHtml = cld[i].innerHTML.slice(text.length);
-    iHtml = '<a href="/'+text+'">'+capitalize(text)+'</a>' + iHtml;
-    cld[i].innerHTML = iHtml;
-  }
-
-  iHtml = contents[0].innerHTML;
   str = `<nav class="navbar navbar-default navbar-fixed-top header-nav">
           <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -82,48 +86,81 @@ $(document).ready(function() {
             </div>
           </div>
         </nav>
-        <nav class="navbar navbar-default navbar-fixed-top bottom-nav">
+        <div class="navbar navbar-default navbar-fixed-top bottom-nav" role="navigation">
           <div class="container-fluid">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul class="nav navbar-nav">`;
+            <div class="collapse navbar-collapse">`;
   str = str + iHtml;
-  str = str + '</ul></div></div></nav>';
+  str = str + '</div></div></nav>';
   $('body').prepend(str);
+  main.innerHTML = '';
+
+  // Handling the Disqus Threads here.
+  $('#postamble').before(`
+    <div id="content">
+      <div id="disqus_thread"></div>
+    </div>
+    <script>
+      (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://virtual-labs.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  `);
 
 
-  contents.children('li').children('ul').removeClass("c-dropdown-menu");
-  contents.children('li').children('ul').addClass("footer-links");
-
+  $(contents).find('.org-ul').removeClass('org-ul');
+  $(contents).removeClass('org-ul');
+  $(contents).children('li').find('ul').addClass("footer-links");
+  
   str = `<footer class="navbar navbar-default">
             <div class="container-fluid">`;
-  cld = contents.children();
+  cld = $(contents).children();
   for(var i=0;i<cld.length;i++) {
     if(i%4 == 0) {
       str = str + '<div class="row">';
     }
-    sib1 = cld[i].firstElementChild;
-    sib2 = cld[i].firstElementChild.nextElementSibling;
-    iHtml = cld[i].innerHTML.slice(text.length);
+    if( $(cld[i]).find('ul').length) {
+      iHTML = '';
+      headText = cld[i].firstChild.textContent.split('\n')[0];
+      subChilds = cld[i].firstChild.nextSibling.children
+      innerContent = '';
+      for(var j=0;j<subChilds.length;j++) {
+        iHTML = '';
+        if(subChilds[j].firstElementChild.tagName == "LI") {
+          iHTML = iHTML + subChilds[j].outerHTML;
+        }
+        else {
+          iText = subChilds[j].firstChild.textContent.split('\n')[0];
+          iHTML = `<li><a href="`+iText+`">`+iText+`</a></li>`;
+        }
+        innerContent = innerContent + iHTML;
+      }
 
-    col = '<div class="col-md-3"><div class="footer-heading">';
-    col = col + '<a href="' + sib1.attributes.href.value + '">' + sib1.text + '</a></div>';
-    if(sib2) col = col + sib2.outerHTML;
-    col = col + '</div>';
-    str = str + col;
+      col =`<div class="col-md-3">
+              <div class="footer-heading">
+                <a href="/`+headText+`">`+capitalize(headText)+`</a>
+              </div>
+              <ul class="footer-links">
+                `+innerContent+`
+              </ul>
+            </div>`;
+      
+      str = str + col;
+    }
+    else {
+      col =`<div class="col-md-3">
+              <div class="footer-heading">
+                `+cld[i].innerHTML+`
+              </div>
+            </div>`;
+    }
     if(i%4 == 3) {
       str = str + '</div>';
     }
   }
-  str = str + '</div></footer>';
-  contents[0].innerHTML = '';
   $('#postamble').before(str);
 
   $('.c-dropdown').hover(function(){
