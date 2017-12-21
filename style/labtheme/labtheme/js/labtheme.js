@@ -69,6 +69,11 @@ $(document).ready(function() {
       childs[idx].innerHTML = link + cld.outerHTML;
     };
   };
+  $(main).find('li').has('ul').each(function() {
+    if(this.firstChild.tagName != 'A') {
+      this.innerHTML = "<a>"+capitalize(this.innerHTML.split('\n')[0]) + "</a>" + this.innerHTML.split('\n').slice(1).join('')
+    }
+  })
   iHtml = main.outerHTML;
   $('ul.org-ul').removeClass('org-ul');
 
