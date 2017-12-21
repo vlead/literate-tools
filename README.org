@@ -127,6 +127,16 @@
     make readtheorg=true -k all
     #+END_EXAMPLE
 
+  - Build with =labtheme= style :: Run the following
+       command to build the documentation with the
+       =labtheme= style. And make sure to include the
+       =sitemap.org= in all the org files by using
+       =#+INCLUDE: <relativepath>/sitemap.org :only-contents t=
+
+    #+BEGIN_EXAMPLE
+    make labtheme=true -k all
+    #+END_EXAMPLE
+
   - Build Directory and .gitignore ::   The build process
        generates a =build= folder containing =docs= and
        =code= directories.  This build folder is not version
