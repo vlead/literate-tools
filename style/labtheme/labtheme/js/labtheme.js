@@ -3,7 +3,8 @@ $(document).ready(function() {
 
   function breadCrumbs(url){
     var ls = url.split("//")[1].split("/");
-    var gitSource = "https://github.com/vlead/vlabs-dev-pages/tree/master/src";
+    gitURL = readTextFile('../../../GIT_ORIGIN').slice(0,-5);
+    var gitSource = gitURL+"/tree/master/src";
     ls[0] = "Home";
     var result = "<ul class='breadcrumb'>";
     if(ls.length == 2){
