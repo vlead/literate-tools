@@ -135,12 +135,12 @@ $(document).ready(function() {
       innerContent = '';
       for(var j=0;j<subChilds.length;j++) {
         iHTML = '';
-        if(subChilds[j].firstElementChild.tagName == "LI") {
-          iHTML = iHTML + subChilds[j].outerHTML;
+        if(subChilds[j].firstElementChild.tagName == "UL") {
+          iText = subChilds[j].firstChild.textContent.split('\n')[0];
+          iHTML = `<li><a href="/`+headText+`/`+iText+`">`+capitalize(iText)+`</a></li>`;
         }
         else {
-          iText = subChilds[j].firstChild.textContent.split('\n')[0];
-          iHTML = `<li><a href="`+iText+`">`+iText+`</a></li>`;
+          iHTML = iHTML + subChilds[j].outerHTML;
         }
         innerContent = innerContent + iHTML;
       }
