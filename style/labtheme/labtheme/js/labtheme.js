@@ -67,7 +67,7 @@ $(document).ready(function() {
   $('.dropdown').hover(function(){$('this .dropdown-toggle').dropdown('toggle') });
 
   // Handling the top navbar
-  $('body').append(domObj.find('ul.org-ul')[0].outerHTML);
+  $('body').prepend(domObj.find('ul.org-ul')[0].outerHTML);
   main = $('ul.org-ul')[0];
   $(main).find('a').each(function() {
     this.attributes['href'].value = '/' + this.attributes['href'].value;

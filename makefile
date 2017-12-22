@@ -3,7 +3,7 @@ BUILD_DIR=build
 
 VER_BRANCH=build-release
 VER_FILE=VERSION
-
+ORIGIN_FILE=GIT_ORIGIN
 ORG_MODE_DIR=~/emacs/lisp
 LITERATE_TOOLS="https://github.com/vlead/literate-tools.git"
 LITERATE_DIR=literate-tools
@@ -23,7 +23,7 @@ export readtheorg
 labtheme=false
 export labtheme
 
-all:  check-org build
+all:  check-org build write-git-origin
 
 check-org:
 ifeq ($(wildcard ${ORG_MODE_DIR}/org-8.2.10/*),)
@@ -87,6 +87,10 @@ ifdef GIT_EXISTS
 	- echo `git rev-parse HEAD` >> ${CODE_DIR}/${VER_FILE}
 	- echo `git log --pretty=format:'%s' -n 1` >> ${CODE_DIR}/${VER_FILE}
 endif
+
+write-git-origin:
+	echo `git config --get remote.origin.url` > ${DOC_DIR}/${ORIGIN_FILE}
+
 clean-literate:
 	rm -rf ${ELISP_DIR}
 	rm -rf src/${ORG_DIR}
