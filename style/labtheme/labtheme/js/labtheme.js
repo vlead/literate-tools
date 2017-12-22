@@ -45,11 +45,29 @@ $(document).ready(function() {
     return ls.join(" ");
   }
 
+  htmlObj = '';
+  function readTextFile(file) {
+    var rawFile = new XMLHttpRequest();
+    rawFile.open("GET", file, false);
+    rawFile.onreadystatechange = function () {
+        if(rawFile.readyState === 4) {
+            if(rawFile.status === 200 || rawFile.status == 0) {
+                htmlObj = rawFile.responseText;
+            }
+        }
+    }
+    rawFile.send(null);
+    return htmlObj;
+  }
+
+  domObj = $(readTextFile('../../../sitemap.html'));
+
   $('#content').prepend(breadCrumbs(url));
 
   $('.dropdown').hover(function(){$('this .dropdown-toggle').dropdown('toggle') });
 
   // Handling the top navbar
+  $('body').append(domObj.find('ul.org-ul')[0].outerHTML);
   main = $('ul.org-ul')[0];
   $(main).find('a').each(function() {
     this.attributes['href'].value = '/' + this.attributes['href'].value;
