@@ -30,12 +30,14 @@
 ;;; Requirements:
 ;;; make sure that org-8.2.10 is available at
 ;;; ~/emacs/lisp/org-8.2.10.
-(set-language-environment "UTF-8")
 (setq load-path
       (append
        (list "~/emacs/lisp/org-8.2.10/lisp"
 	     "~/emacs/lisp/org-8.2.10/contrib/lisp")
        load-path))
+
+;;; set coding system to UTF-8
+(set-language-environment "UTF-8")
 
 (require 'org)
 (require 'ob-tangle)
