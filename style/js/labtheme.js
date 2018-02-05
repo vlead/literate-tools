@@ -1,10 +1,8 @@
 $(document).ready(function() {
   var url = window.location.toString();
-
   function breadCrumbs(url){
     var ls = url.split("//")[1].split("/");
-    gitURL = readTextFile('../../../GIT_ORIGIN').slice(0,-5);
-    var gitSource = gitURL+"/tree/master/src";
+    var gitSource = "https://github.com/vlead/vlabs-dev-pages/tree/master/src";
     ls[0] = "Home";
     var result = "<ul class='breadcrumb'>";
     if(ls.length == 2){
@@ -37,7 +35,6 @@ $(document).ready(function() {
     result = result.concat("</ul>");
     return result;
   }
-
   function capitalize(s){
     var ls = s.split(" ");
     ls = ls.map(function(i){
@@ -45,7 +42,9 @@ $(document).ready(function() {
     });
     return ls.join(" ");
   }
+  $('#content').prepend(breadCrumbs(url));
 
+  $('.dropdown').hover(function(){$('this .dropdown-toggle').dropdown('toggle') });
   htmlObj = '';
   function readTextFile(file) {
     var rawFile = new XMLHttpRequest();
@@ -56,18 +55,12 @@ $(document).ready(function() {
                 htmlObj = rawFile.responseText;
             }
         }
-    }
+    };
     rawFile.send(null);
     return htmlObj;
   }
 
   domObj = $(readTextFile('../../../sitemap.html'));
-
-  $('#content').prepend(breadCrumbs(url));
-
-  $('.dropdown').hover(function(){$('this .dropdown-toggle').dropdown('toggle') });
-
-  // Handling the top navbar
   $('body').prepend(domObj.find('ul.org-ul')[0].outerHTML);
   main = $('ul.org-ul')[0];
   $(main).find('a').each(function() {
@@ -96,7 +89,6 @@ $(document).ready(function() {
   }
   iHtml = main.outerHTML;
   $('ul.org-ul').removeClass('org-ul');
-
   str = `<nav class="navbar navbar-default navbar-fixed-top header-nav">
           <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -118,8 +110,6 @@ $(document).ready(function() {
   str = str + '</div></div></nav>';
   $('body').prepend(str);
   main.innerHTML = '';
-
-  // Handling the Disqus Threads here.
   $('#postamble').before(`
     <div id="content">
       <div id="disqus_thread"></div>
@@ -134,8 +124,6 @@ $(document).ready(function() {
     </script>
     <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   `);
-
-
   $(contents).find('.org-ul').removeClass('org-ul');
   $(contents).removeClass('org-ul');
   $(contents).children('li').find('ul').addClass("footer-links");
@@ -163,7 +151,6 @@ $(document).ready(function() {
         }
         innerContent = innerContent + iHTML;
       }
-
       col =`<div class="col-md-3">
               <div class="footer-heading">
                 <a href="/`+headText+`">`+capitalize(headText)+`</a>
@@ -187,7 +174,6 @@ $(document).ready(function() {
     }
   }
   $('#postamble').before(str);
-
   $('.c-dropdown').hover(function(){
     if($(this).find('ul.c-dropdown-menu')[0]) {
       $(this).find('ul.c-dropdown-menu')[0].style.display = 'block';

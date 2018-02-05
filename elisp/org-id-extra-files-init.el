@@ -8,4 +8,3 @@
 (defvar top-dir (locate-dominating-file default-directory ".git"))
 (setq org-id-track-globally t)
 (setq org-id-extra-files (find-lisp-find-files top-dir "\\.org$"))
-

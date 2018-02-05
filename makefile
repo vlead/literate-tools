@@ -3,7 +3,7 @@ BUILD_DIR=build
 
 VER_BRANCH=build-release
 VER_FILE=VERSION
-ORIGIN_FILE=GIT_ORIGIN
+
 ORG_MODE_DIR=~/emacs/lisp
 LITERATE_TOOLS="https://github.com/vlead/literate-tools.git"
 LITERATE_DIR=literate-tools
@@ -22,8 +22,7 @@ readtheorg=false
 export readtheorg
 labtheme=false
 export labtheme
-
-all:  check-org build write-git-origin
+all:  check-org build
 
 check-org:
 ifeq ($(wildcard ${ORG_MODE_DIR}/org-8.2.10/*),)
@@ -50,16 +49,14 @@ mk-symlinks:  pull-literate-tools
         rm -rf ${SRC_DIR}/${STYLE_DIR}; \
 	mkdir -p ${SRC_DIR}/${ORG_DIR}; \
         mkdir -p ${SRC_DIR}/${STYLE_DIR};)
-        ifeq ($(readtheorg),true)        
-	(rsync -a ${LITERATE_DIR}/${ORG_DIR}/${READTHEORG}/ ${SRC_DIR}/${ORG_DIR}/; \
-	rsync -a ${LITERATE_DIR}/${STYLE_DIR}/${READTHEORG}/ ${SRC_DIR}/${STYLE_DIR}/)
-        else ifeq ($(labtheme),true)        
-	(rsync -a ${LITERATE_DIR}/${ORG_DIR}/${LABTHEME}/ ${SRC_DIR}/${ORG_DIR}/; \
-	rsync -a ${LITERATE_DIR}/${STYLE_DIR}/${LABTHEME}/ ${SRC_DIR}/${STYLE_DIR}/)
-        else
-	(rsync -a ${LITERATE_DIR}/${ORG_DIR}/${DEFAULT}/ ${SRC_DIR}/${ORG_DIR}; \
-	rsync -a ${LITERATE_DIR}/${STYLE_DIR}/${DEFAULT}/ ${SRC_DIR}/${STYLE_DIR})
-        endif
+	rsync -a ${LITERATE_DIR}/${STYLE_DIR}/ ${SRC_DIR}/${STYLE_DIR}/
+    ifeq ($(readtheorg),true)
+	rsync -a ${LITERATE_DIR}/${ORG_DIR}/${READTHEORG}/ ${SRC_DIR}/${ORG_DIR}/
+    else ifeq ($(labtheme),true)        
+	rsync -a ${LITERATE_DIR}/${ORG_DIR}/${LABTHEME}/ ${SRC_DIR}/${ORG_DIR}/
+    else
+	rsync -a ${LITERATE_DIR}/${ORG_DIR}/${DEFAULT}/ ${SRC_DIR}/${ORG_DIR}/
+    endif
 	rsync -a ${LITERATE_DIR}/${ORG_DIR}/tex-macros.org ${SRC_DIR}/${ORG_DIR}/
 
 pull-literate-tools:
@@ -87,10 +84,6 @@ ifdef GIT_EXISTS
 	- echo `git rev-parse HEAD` >> ${CODE_DIR}/${VER_FILE}
 	- echo `git log --pretty=format:'%s' -n 1` >> ${CODE_DIR}/${VER_FILE}
 endif
-
-write-git-origin:
-	echo `git config --get remote.origin.url` > ${DOC_DIR}/${ORIGIN_FILE}
-
 clean-literate:
 	rm -rf ${ELISP_DIR}
 	rm -rf src/${ORG_DIR}
@@ -101,4 +94,3 @@ clean-literate:
 
 clean:	clean-literate
 	rm -rf ${BUILD_DIR}
-

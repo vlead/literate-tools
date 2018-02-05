@@ -1,7 +1,5 @@
-#+AUTHOR:    VLEAD
-#+EMAIL:     engg@virtual-labs.ac.in
-
-
+#+AUTHOR: VLEAD
+#+EMAIL:    engg@virtual-labs.ac.in
 #+DESCRIPTION: 
 #+KEYWORDS: 
 #+LANGUAGE:  en
@@ -14,7 +12,7 @@
 #+HTML_LINK_UP: ../index.html
 #+HTML_LINK_HOME: ../../../../../index.html
 
-#+INFOJS_OPT: view:info toc:t ltoc:t tdepth:1 mouse:underline buttons:0 path:../../../style/js/org-info.js
-#+HTML_HEAD:  <link rel="stylesheet" type="text/css" href="../../../style/css/worg-style.css" />
-#+HTML_HEAD_EXTRA:  <link rel="stylesheet" type="text/css" href="../../../style/css/override.css" />
-#+HTML_HEAD_EXTRA:  <link rel="icon" type="image/png" href="../../../style/img/favicon/popl.png" />
+#+INFOJS_OPT: view:info toc:t ltoc:t tdepth:1 mouse:underline buttons:0 path:../../../../../style/js/org-info.js
+#+HTML_HEAD:  <link rel="stylesheet" type="text/css" href="../../../../../style/css/worg-style.css" />
+#+HTML_HEAD_EXTRA:  <link rel="stylesheet" type="text/css" href="../../../../../style/css/override.css" />
+#+HTML_HEAD_EXTRA:  <link rel="icon" type="image/png" href="../../../../../style/img/favicon/popl.png" />

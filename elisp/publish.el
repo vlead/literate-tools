@@ -30,6 +30,7 @@
 ;;; Requirements:
 ;;; make sure that org-8.2.10 is available at
 ;;; ~/emacs/lisp/org-8.2.10.
+
 (setq load-path
       (append
        (list "~/emacs/lisp/org-8.2.10/lisp"
@@ -146,7 +147,6 @@
 		:auto-sitemap t
 		:sitemap-title " "
 		))
-
 ;;; copies non org (static) files  to docs
 (setq org-static
 	  `("org-static"
@@ -185,4 +185,3 @@
  prj  ; project name
  t ; force
  )
-

@@ -43,7 +43,7 @@ blockquote{
     margin:0}
 
 dfn{
-    font-style:italic}
+
 
 ins{
     background:#ff9;
@@ -53,7 +53,7 @@ ins{
 mark{
     background:#ff0;
     color:#000;
-    font-style:italic;
+
     font-weight:bold}
 
 pre,code,.rst-content tt,kbd,samp{
@@ -282,12 +282,7 @@ big,small{
 /*!
  *  Font Awesome 4.1.0 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
- */@font-face{
-    font-family:'FontAwesome';
-    src:url("../fonts/fontawesome-webfont.eot?v=4.1.0");
-    src:url("../fonts/fontawesome-webfont.eot?#iefix&v=4.1.0") format("embedded-opentype"),url("../fonts/fontawesome-webfont.woff?v=4.1.0") format("woff"),url("../fonts/fontawesome-webfont.ttf?v=4.1.0") format("truetype"),url("../fonts/fontawesome-webfont.svg?v=4.1.0#fontawesomeregular") format("svg");
-    font-weight:normal;
-    font-style:normal}
+ */
 
 .fa,.rst-content .admonition-title,.rst-content h1 .headerlink,.rst-content h2 .headerlink,.rst-content h3 .headerlink,.rst-content h4 .headerlink,.rst-content h5 .headerlink,.rst-content h6 .headerlink,.rst-content dl dt .headerlink,.icon{
     display:inline-block;
@@ -2329,7 +2324,7 @@ input,select,textarea{
     color:#999;
     font-size:70%;
     margin-top:0.3125em;
-    font-style:italic}
+
 
 input{
     line-height:normal}
@@ -2610,7 +2605,7 @@ select[disabled],textarea[disabled],input[readonly],select[readonly],textarea[re
 
 .wy-table caption,.rst-content table.docutils caption,.rst-content table.field-list caption{
     color:#000;
-    font:italic 85%/1 arial,sans-serif;
+
     padding:1em 0;
     text-align:center}
 
@@ -2942,7 +2937,7 @@ div[class^='highlight'] pre{
 
 .c{
     color:#998;
-    font-style:italic}
+
 
 .err{
     color:#a61717;
@@ -2956,7 +2951,7 @@ div[class^='highlight'] pre{
 
 .cm{
     color:#998;
-    font-style:italic}
+
 
 .cp{
     color:#999;
@@ -2964,12 +2959,12 @@ div[class^='highlight'] pre{
 
 .c1{
     color:#998;
-    font-style:italic}
+
 
 .cs{
     color:#999;
     font-weight:bold;
-    font-style:italic}
+
 
 .gd{
     color:#000;
@@ -2980,7 +2975,7 @@ div[class^='highlight'] pre{
     background-color:#faa}
 
 .ge{
-    font-style:italic}
+
 
 .gr{
     color:#a00}

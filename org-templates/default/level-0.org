@@ -1,4 +1,4 @@
-#+AUTHOR:    VLEAD
+#+AUTHOR:   VLEAD 
 #+EMAIL:     engg@virtual-labs.ac.in
 #+DESCRIPTION: 
 #+KEYWORDS: 

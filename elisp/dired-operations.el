@@ -24,17 +24,13 @@
   (interactive)
   "Copy marked files in src to corresponding build/code directory if it exists"
   (let ((fns (dired-get-marked-files t)))
-	(let ((dir (dired-current-directory)))
-	  (if (string-match "/src/" dir)
-		  (progn
-			(let ((dest (replace-regexp-in-string "/src/" "/build/code/" dir)))
+  (let ((dir (dired-current-directory)))
+    (if (string-match "/src/" dir)
+      (progn
+      (let ((dest (replace-regexp-in-string "/src/" "/build/code/" dir)))
 
-			  (let ((cmd (concat "rsync -a * " dest)))
-				(print cmd)
-				(dired-do-shell-command cmd nil fns)
-				)))
-		(error "you are probably not in a src directory")))))
-		
-		
-
-
+        (let ((cmd (concat "rsync -a * " dest)))
+        (print cmd)
+        (dired-do-shell-command cmd nil fns)
+        )))
+    (error "you are probably not in a src directory")))))

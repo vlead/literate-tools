@@ -7,17 +7,17 @@
   (interactive "s")
   (let* ((dir (expand-file-name default-directory))
          ; the current buffer's directory ^^^^
-	 ;; neutralize whitespace in directory names
-	 (tmp-cmd (concat "cd " "\"" dir "\""))
-	 (cmd (concat tmp-cmd "; " com)))
+   ;; neutralize whitespace in directory names
+   (tmp-cmd (concat "cd " "\"" dir "\""))
+   (cmd (concat tmp-cmd "; " com)))
     (with-current-buffer 
 ;      (shell   ;; this creates a shell in a buffer 
       (get-buffer-create "*shell*") ; this only creates the buffer
-;	  ) 
+;   ) 
 
 ;; In the above shell is commented because otherwise the the original
-	  ;; buffer is buried and the screen splits into two with the
-	  ;; *shell*  buffers. 
+    ;; buffer is buried and the screen splits into two with the
+    ;; *shell*  buffers. 
 
       ;; append the command to the shell buffer and run it
       (goto-char (point-max)) 

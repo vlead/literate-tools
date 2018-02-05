@@ -59,7 +59,4 @@
 (define-key dired-mode-map "P" 'dired-push-to-build-code)
 (define-key dired-mode-map "T" 'dired-tangle-to-build-code)
 		
-		
-
-
 (provide 'incr-build)
