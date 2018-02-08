@@ -1,4 +1,13 @@
 #SHELL := /bin/bash
+# Usage:
+# make -k theme=<theme-name> all
+
+# User arguments to make
+# ======================
+
+# theme: default  | readtheorg | labtheme
+theme=default
+
 BUILD_DIR=build
 
 VER_BRANCH=build-release
