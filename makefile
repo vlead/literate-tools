@@ -17,20 +17,15 @@ ORG_MODE_DIR=~/emacs/lisp
 LITERATE_TOOLS="https://github.com/vlead/literate-tools.git"
 LITERATE_DIR=literate-tools
 DEFAULT=default
-READTHEORG=readtheorg
 LABTHEME=labtheme
 ELISP_DIR=elisp
-ORG_DIR=org-templates
+ORG_TEMPLATES_DIR=org-templates
 STYLE_DIR=style
 CODE_DIR=build/code
 DOC_DIR=build/docs
 SRC_DIR=src
 PWD=$(shell pwd)
 STATUS=0
-readtheorg=false
-export readtheorg
-labtheme=false
-export labtheme
 all:  check-org build
 
 check-org:
@@ -54,11 +49,13 @@ init: mk-symlinks
 
 mk-symlinks:  pull-literate-tools
 	(ln -sf ${LITERATE_DIR}/${ELISP_DIR}; \
-	 rsync -a ${LITERATE_DIR}/${ORG_DIR}/${theme}/ ${ORG_DIR}; \
+	 rsync -a ${LITERATE_DIR}/${ORG_TEMPLATES_DIR}/${theme}/ ${ORG_TEMPLATES_DIR}; \
 	 rsync -a ${LITERATE_DIR}/${STYLE_DIR} .; \
-	 rsync -a ${LITERATE_DIR}/${ORG_DIR}/tex-macros.org ${ORG_DIR}; \
+	 rsync -a ${LITERATE_DIR}/${ORG_TEMPLATES_DIR}/tex-macros.org ${ORG_TEMPLATES_DIR}; \
 	 cd ${SRC_DIR}; \
-	 ln -sf ../${ORG_DIR})
+	 ln -sf ../${ORG_TEMPLATES_DIR}; \
+	 ln -sf ../${STYLE_DIR}; \
+	 cd ..; )
 
 
 pull-literate-tools:
@@ -88,7 +85,7 @@ ifdef GIT_EXISTS
 endif
 clean-literate:
 	rm -rf ${ELISP_DIR}
-	rm -rf src/${ORG_DIR}
+	rm -rf src/${ORG_TEMPLATES_DIR}
 	rm -rf src/${STYLE_DIR}
 	rm -rf ${LITERATE_DIR}
 	rm -rf src/sitemap.org
