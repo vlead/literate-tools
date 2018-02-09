@@ -45,23 +45,31 @@ $(document).ready(function() {
   $('#content').prepend(breadCrumbs(url));
 
   $('.dropdown').hover(function(){$('this .dropdown-toggle').dropdown('toggle') });
-  htmlObj = '';
-  function readTextFile(file) {
-    var rawFile = new XMLHttpRequest();
-    rawFile.open("GET", file, false);
-    rawFile.onreadystatechange = function () {
-        if(rawFile.readyState === 4) {
-            if(rawFile.status === 200 || rawFile.status == 0) {
-                htmlObj = rawFile.responseText;
-            }
-        }
-    };
-    rawFile.send(null);
-    return htmlObj;
-  }
+  var readContentFromSiteMap = function() {
+    var request = new XMLHttpRequest();
+    var sitemapurl = url.split("//")[0] + "//" + url.split("//")[1].split("/")[0] + "/sitemap.html";
+    request.open("GET", sitemapurl, false);
+    request.send(null);
 
-  domObj = $(readTextFile('../../../sitemap.html'));
-  $('body').prepend(domObj.find('ul.org-ul')[0].outerHTML);
+    var doc = document.implementation.createHTMLDocument("sitemap");
+    doc.documentElement.innerHTML = request.responseText;
+
+    return doc.documentElement.getElementsByTagName("div")[0];
+  };
+
+  var parseContent = function(cnt) {
+    var lis = cnt.getElementsByTagName("li");
+    var flis = Array.from(lis).filter(function(el) { return el.getElementsByTagName("ul").length > 0; });
+    var fflis = flis.filter(function(el) { return el.textContent.indexOf("org") == -1;});
+    var ulList = document.createElement("ul");
+    ulList.className = "org-ul";
+    fflis.forEach(function(el) { ulList.append(el); });
+    return ulList;
+  };
+
+  var cnt = readContentFromSiteMap();
+  var ulList = parseContent(cnt);
+  document.body.prepend(ulList);
   main = $('ul.org-ul')[0];
   $(main).find('a').each(function() {
     this.attributes['href'].value = '/' + this.attributes['href'].value;
@@ -99,7 +107,7 @@ $(document).ready(function() {
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="/"><img src="/style/labtheme/img/logo-new.png" /></a>
+              <a class="navbar-brand" href="/"><img src="/style/img/logo-new.png" /></a>
             </div>
           </div>
         </nav>
