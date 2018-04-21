@@ -10,6 +10,7 @@ LITERATE_DIR=literate-tools
 DEFAULT=default
 READTHEORG=readtheorg
 LABTHEME=labtheme
+EXPTHEME=exptheme
 ELISP_DIR=elisp
 ORG_DIR=org-templates
 STYLE_DIR=style
@@ -22,6 +23,8 @@ readtheorg=false
 export readtheorg
 labtheme=false
 export labtheme
+exptheme=false
+export exptheme
 all:  check-org build
 
 check-org:
@@ -54,6 +57,8 @@ mk-symlinks:  pull-literate-tools
 	rsync -a ${LITERATE_DIR}/${ORG_DIR}/${READTHEORG}/ ${SRC_DIR}/${ORG_DIR}/
     else ifeq ($(labtheme),true)        
 	rsync -a ${LITERATE_DIR}/${ORG_DIR}/${LABTHEME}/ ${SRC_DIR}/${ORG_DIR}/
+    else ifeq ($(exptheme),true)        
+	rsync -a ${LITERATE_DIR}/${ORG_DIR}/${EXPTHEME}/ ${SRC_DIR}/${ORG_DIR}/
     else
 	rsync -a ${LITERATE_DIR}/${ORG_DIR}/${DEFAULT}/ ${SRC_DIR}/${ORG_DIR}/
     endif
