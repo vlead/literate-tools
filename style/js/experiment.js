@@ -36,8 +36,8 @@ var removeInnerDivsFromDict = function() {
 
 var removeAllDivsFromDocument = function() {
   var keyz = Object.keys(divIdMap);
+  //keyz.forEach(function(el) { console.log("hhhh ===> %s", el);});
   keyz.forEach(function(el) {
-    console.log(el);
     var elem = document.getElementById(el);
     if (elem != null)
       elem.remove();
@@ -128,22 +128,30 @@ var setContentForRight = function(hashPath) {
 };
 
 var changeState = function(hashPath) {
-  var digitHyphenDigit = /([0-9])-([0-9])$/;
-  var match = digitHyphenDigit.exec(hashPath);
+  var firstLevelSection = /([0-9])$/;
+  var secondLevelSection = /-([0-9])-([0-9])$/;
+  var thirdLevelSection = /-([0-9])-([0-9])-([0-9])$/;
   
-  clearCurrentContent();
-  createThreeColumns();
-  attachToc();
-  if (match == null)
-    setContentForCenter(hashPath);
-  else {
-    if (match[2] == '1') {
-      setContentForCenter(hashPath);
-      setContentForRight('sec-' + match[1] + '-2');
-    } else {
-      setContentForCenter('sec-' + match[1] + '-1');
-      setContentForRight(hashPath);
+  if (thirdLevelSection.exec(hashPath) == null) {
+    if (secondLevelSection.exec(hashPath) != null ||
+	firstLevelSection.exec(hashPath)) {
+      clearCurrentContent();
+      createThreeColumns();
+      attachToc();
+
+      let match = secondLevelSection.exec(hashPath);
+  
+      if (match == null)
+	setContentForCenter(hashPath);
+      else {
+	setContentForCenter('sec' + match[0] + '-1');
+	setContentForRight('sec' + match[0] + '-2');
+      }
     }
+  } else {
+    let match = thirdLevelSection.exec(hashPath);
+    navigate('sec-' + match[1] + '-' + match[2]);
+    $(window).trigger("hashchange");
   }
 };
 
@@ -157,6 +165,9 @@ var registerOnHashChangeHandler = function() {
 };
 
 function navigate(path) {
+  var cu = window.location.href;
+  console.log("navigate - path = %s", path);
+  console.log("replace - %s", cu.replace(/#(.*)$/, '') + '#' + path);
   var current = window.location.href;
   window.location.href = current.replace(/#(.*)$/, '') + '#' + path;
 };
