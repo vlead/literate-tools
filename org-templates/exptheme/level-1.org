@@ -1,0 +1,21 @@
+#+AUTHOR:   VLEAD 
+#+EMAIL:     engg@virtual-labs.ac.in
+#+DESCRIPTION: 
+#+KEYWORDS: 
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:nil skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+STARTUP: hidestars
+
+
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../style/css/bootstrap.min.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="../style/css/experiment.css"/>
+
+#+HTML_HEAD: <script type="text/javascript" src="../style/js/jquery.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="../style/js/bootstrap.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="../style/js/catalog.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="../style/js/get.resource.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="../style/js/parser.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="../style/js/router.js"></script>
